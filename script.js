@@ -74,5 +74,42 @@ function adicionarHistorico() {
     tabela.deleteRow(0);
   }
 
+  salvarHistorico();
   limpar();
 }
+
+function salvarHistorico() {
+  const tabela = document.getElementById("tabelaHistorico").querySelector("tbody");
+  const dados = [];
+  for (let i = 0; i < tabela.rows.length; i++) {
+    const cells = tabela.rows[i].cells;
+    dados.push({
+      mes: cells[0].innerText,
+      casa1Valor: cells[1].innerText,
+      casa1Consumo: cells[2].innerText,
+      casa2Valor: cells[3].innerText,
+      casa2Consumo: cells[4].innerText
+    });
+  }
+  localStorage.setItem("historicoEnergia", JSON.stringify(dados));
+}
+
+function carregarHistorico() {
+  const dados = JSON.parse(localStorage.getItem("historicoEnergia") || "[]");
+  const tabela = document.getElementById("tabelaHistorico").querySelector("tbody");
+  tabela.innerHTML = "";
+  dados.forEach(item => {
+    const linha = document.createElement("tr");
+    linha.innerHTML = `
+      <td>${item.mes}</td>
+      <td>${item.casa1Valor}</td>
+      <td>${item.casa1Consumo}</td>
+      <td>${item.casa2Valor}</td>
+      <td>${item.casa2Consumo}</td>
+    `;
+    tabela.appendChild(linha);
+  });
+}
+
+// Carrega histórico ao abrir o app
+window.onload = carregarHistorico;
