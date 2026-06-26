@@ -1,0 +1,15 @@
+{
+  "name": "Divisão da Conta de Energia",
+  "short_name": "Energia",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f0f4f8",
+  "theme_color": "#007bff",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

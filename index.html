@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Divisão da Conta de Energia</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div class="container">
+    <h1>Divisão da Conta de Energia</h1>
+
+    <input id="valorConta" type="text" placeholder="Valor total da conta (R$)">
+    <input id="consumoTotal" type="text" placeholder="Consumo total (kWh)">
+    <input id="leituraAnterior" type="text" placeholder="Leitura anterior Casa 2 (kWh)">
+    <input id="leituraAtual" type="text" placeholder="Leitura atual Casa 2 (kWh)">
+    <input id="mesReferencia" type="text" placeholder="Mês (ex: Junho/2026)">
+
+    <button onclick="calcular()">Calcular</button>
+    <button onclick="limpar()">Limpar</button>
+    <button onclick="adicionarHistorico()">Adicionar ao histórico</button>
+
+    <p id="resultadoCasa1"></p>
+    <p id="resultadoCasa2"></p>
+
+    <h2>Histórico (últimos 3 meses)</h2>
+    <table id="tabelaHistorico">
+      <thead>
+        <tr>
+          <th>Mês</th>
+          <th>Casa 1 (R$)</th>
+          <th>Casa 1 (kWh)</th>
+          <th>Casa 2 (R$)</th>
+          <th>Casa 2 (kWh)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- Registro do Service Worker -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("Service Worker registrado com sucesso."))
+        .catch(error => console.log("Erro ao registrar Service Worker:", error));
+    }
+  </script>
+</body>
+</html>
