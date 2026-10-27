@@ -2,42 +2,102 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Divisão da Conta de Energia</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Energia Kitnets</title>
+  <meta name="theme-color" content="#0a84ff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Energia">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Divisão da Conta de Energia</h1>
+  <header class="topo">
+    <img src="icon-192.png" alt="" class="topo-icone">
+    <div>
+      <h1>Energia Kitnets</h1>
+      <p>Divisão da conta de energia</p>
+    </div>
+  </header>
 
-    <input id="valorConta" type="text" placeholder="Valor total da conta (R$)">
-    <input id="consumoTotal" type="text" placeholder="Consumo total (kWh)">
-    <input id="leituraAnterior" type="text" placeholder="Leitura anterior Casa 2 (kWh)">
-    <input id="leituraAtual" type="text" placeholder="Leitura atual Casa 2 (kWh)">
-    <input id="mesReferencia" type="text" placeholder="Mês (ex: Junho/2026)">
+  <main class="conteudo">
+    <section class="card">
+      <h2>Conta do padrão</h2>
+      <div class="linha">
+        <label class="campo">
+          <span>Valor total (R$)</span>
+          <input id="valorConta" type="text" inputmode="decimal" placeholder="0,00">
+        </label>
+        <label class="campo">
+          <span>Consumo total (kWh)</span>
+          <input id="consumoTotal" type="text" inputmode="decimal" placeholder="0">
+        </label>
+      </div>
 
-    <button onclick="calcular()">Calcular</button>
-    <button onclick="limpar()">Limpar</button>
-    <button onclick="adicionarHistorico()">Adicionar ao histórico</button>
+      <h2>Medidor da Casa 2</h2>
+      <div class="linha">
+        <label class="campo">
+          <span>Leitura anterior</span>
+          <input id="leituraAnterior" type="text" inputmode="decimal" placeholder="0">
+        </label>
+        <label class="campo">
+          <span>Leitura atual</span>
+          <input id="leituraAtual" type="text" inputmode="decimal" placeholder="0">
+        </label>
+      </div>
 
-    <p id="resultadoCasa1"></p>
-    <p id="resultadoCasa2"></p>
+      <label class="campo">
+        <span>Mês de referência</span>
+        <input id="mesReferencia" type="text" placeholder="ex: Junho/2026">
+      </label>
 
-    <h2>Histórico (últimos 3 meses)</h2>
-    <table id="tabelaHistorico">
-      <thead>
-        <tr>
-          <th>Mês</th>
-          <th>Casa 1 (R$)</th>
-          <th>Casa 1 (kWh)</th>
-          <th>Casa 2 (R$)</th>
-          <th>Casa 2 (kWh)</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+      <button class="botao botao-principal" onclick="calcular()">Calcular</button>
+      <div class="linha">
+        <button class="botao botao-secundario" onclick="limpar()">Limpar</button>
+        <button class="botao botao-verde" onclick="adicionarHistorico()">Salvar mês</button>
+      </div>
+    </section>
+
+    <p id="mensagem" class="mensagem"></p>
+
+    <section id="resultados" class="resultados" hidden>
+      <div class="resultado casa1">
+        <span class="resultado-titulo">Casa 1</span>
+        <strong id="valorCasa1"></strong>
+        <small id="consumoCasa1"></small>
+      </div>
+      <div class="resultado casa2">
+        <span class="resultado-titulo">Casa 2</span>
+        <strong id="valorCasa2"></strong>
+        <small id="consumoCasa2"></small>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Histórico <small>(últimos 3 meses)</small></h2>
+      <div class="tabela-scroll">
+        <table id="tabelaHistorico">
+          <thead>
+            <tr>
+              <th>Medidor Casa 2</th>
+              <th>Padrão (kWh)</th>
+              <th>Padrão (R$)</th>
+              <th>Mês</th>
+              <th>Casa 1 (R$)</th>
+              <th>Casa 1 (kWh)</th>
+              <th>Casa 2 (R$)</th>
+              <th>Casa 2 (kWh)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="historicoVazio" class="vazio">Nenhum mês salvo ainda.</p>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 
